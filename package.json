@@ -1,8 +1,10 @@
 {
     "name": "MyWordPress",
     "version": "0.1.0",
+    "description": "MyWordPress",
     "dependencies": {
         "express":"4.12.x",
-        "mongoose": "3.8.x"
+        "mongoose": "*",
+        "body-parser": "*"
     }
 }
