@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 
-
-
 var articleSchema = new mongoose.Schema({
-	title : String
+	title : String,
+	content : String,
+	date : Date
 });
 
 var articleModel = mongoose.model('articles', articleSchema);
@@ -11,8 +11,12 @@ var articleModel = mongoose.model('articles', articleSchema);
 
 exports.create = function (req, res) {
 	if (typeof req.body.title != 'undefined'){
-		console.log("nnnnnnn");
-		var article = new articleModel({title : req.body.title});
+		console.log("error");
+		var article = new articleModel({
+			title : req.body.title,
+			content : req.body.content,
+			date : req.body.date
+		});
 		article.save(function (err, doc) {
 	  		if (err) { throw err; }
 	  		console.log('article ajouté avec succès !');
