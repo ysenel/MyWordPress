@@ -45,10 +45,12 @@ exports.getOne = function (req, res) {
 
 exports.deleteOne = function (req, res) {
 	var id = req.params.id;
+	console.log(id);
 	articleModel.remove({_id : id}, function (err, result) {
   	if (err) { throw err; }
   	console.log('Article id = ' + id + ' supprimé.');
-  	return res.json(result);
+  	res.json({msg: 'This is CORS-enabled for all origins!'});
+  	//return res.json(result);
 	});
 };
 

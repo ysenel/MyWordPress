@@ -1,0 +1,23 @@
+
+<div ng-controller="articleCtrl">
+    <div ng-repeat="article in articles">
+        <div class="col-xs-9">
+            <div class="page-header">
+                <h1>{{article.title}}</h1>
+            </div>
+
+            <p>
+                {{article.content}}
+            </p>
+            <p class="pull-right">
+                {{article.date}}
+            </p>    
+            <br></br>
+            <a ng-click="deleteArticle(article._id)" href="#" class="btn btn-danger btn-lg pull-right" style="margin-left : 1em;">Supprimer Article</a>
+
+
+            <a href="#" class="btn btn-primary btn-lg pull-right">Modifier Article</a>
+            
+        </div>
+    </div>
+</div>
