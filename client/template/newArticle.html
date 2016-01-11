@@ -1,0 +1,37 @@
+<div ng-controller="newArticle">
+<div>
+	<div class="container">
+	        <div class="row">
+	            <div class="col-xs-12">
+	            	
+					<fieldset>
+						<legend>Ajouter un Article</legend>
+					</fieldset>
+					<form ng-submit="addNewArticle()">
+
+					<div class="clearfix">
+					<label>Titre</label>
+					<div class="input">
+						<input type="text" ng-model="newArticle.title"/>
+					</div>
+					</div>
+
+					<div class="clearfix">
+					<label>Contenue</label>
+					<div class="input">
+						 <textarea rows="7" cols="100" ng-model="newArticle.content"></textarea> 
+					</div>
+					</div>
+
+					<button type="submit" class="btn btn-lg btn-primary pull-right">Envoyer</button>
+					<br></br>
+
+					</form>
+						
+
+				</div>
+			</div>
+		</div>
+
+</div>
+</div>

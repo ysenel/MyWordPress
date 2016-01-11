@@ -7,7 +7,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-
+    <script src="https://code.angularjs.org/1.5.0-rc.0/angular-route.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.2.0.js"></script>
 
 
   </head>
@@ -15,16 +16,7 @@
     
     
     <div ui-view="header"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-3">
-                <a href="#" class="btn btn-primary btn-lg">Ajouter Article</a>
-            </div>
-        </div>
-        <div class="row">
-        <div ui-view="article"></div>
-        </div>
-    </div>
+    <div ui-view="content"></div>
     <script src="app.js"></script>
 
 
