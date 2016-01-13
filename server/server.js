@@ -27,6 +27,7 @@ app.post('/app/article', article.create);
 app.get('/app/article/:id', article.getOne);
 app.delete('/app/article/:id', article.deleteOne);
 app.delete('/app/articles', article.deleteAll);
+app.put('/app/article', article.updateArticle);
 
 
 app.listen(8080);

@@ -1,10 +1,11 @@
 {
-    "name": "MyWordPress",
-    "version": "0.1.0",
-    "description": "MyWordPress",
-    "dependencies": {
-        "express":"4.12.x",
-        "mongoose": "*",
-        "body-parser": "*"
-    }
+  "name": "MyWordPress",
+  "version": "0.1.0",
+  "description": "MyWordPress",
+  "dependencies": {
+    "body-parser": "*",
+    "cors": "^2.7.1",
+    "express": "4.12.x",
+    "mongoose": "*"
+  }
 }

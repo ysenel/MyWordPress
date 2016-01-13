@@ -61,3 +61,13 @@ exports.deleteAll = function (req, res) {
   	return res.json(result);
 	});
 };
+
+exports.updateArticle = function (req, res) {
+	var id = req.body.id;
+	console.log(req.body);
+	articleModel.update({_id : id}, req.body, { multi : true }, function (err, ressult) {
+  		if (err) { throw err; }
+  		console.log('Article modifié');
+  		res.json({msg: 'This is CORS-enabled for all origins!'});
+	});
+};
