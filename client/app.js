@@ -49,7 +49,9 @@ app.controller("articleCtrl", function ($scope, $http, $location, $state) {
     $scope.deleteArticle = function function_name (id) {
     	$http.delete("http://localhost:8080/app/article/" + id)
     	.then(function(res) {
-            $("#" + id).remove();});}
+            $("#" + id).toggle( "slide" , 500);
+        })
+    ;}
 
     $scope.editArticle = function function_name (id, title, content, date) {
         var article = {
