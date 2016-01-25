@@ -9,9 +9,9 @@
                 <p>{{page.content}}</p>
                 <p class="pull-right">{{page.date | date:'dd-MM-yyyy HH:mm'}}</p>    
                 <br></br>
-                <a ng-click="deleteArticle(article._id)" href="#" class="btn btn-danger btn-lg pull-right" style="margin-left : 1em;">Supprimer Page</a>
+                <a ng-click="deletePage(page._id)" href="#" class="btn btn-danger btn-lg pull-right" style="margin-left : 1em;">Supprimer Page</a>
                     
-                <a ng-click="editArticle(article._id, article.title, article.content, article.date)" href="#" class="btn btn-primary btn-lg pull-right">Modifier Page</a>
+                <a ng-click="editPage(page._id, page.title, page.content, page.date)" href="#" class="btn btn-primary btn-lg pull-right">Modifier Page</a>
                 </div>
 
             </div>

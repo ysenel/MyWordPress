@@ -24,6 +24,15 @@ app.config(['$stateProvider',
                 }
             }
         )
+        .state("editPage", {
+                url : "/editPage",
+                params : {"id" : undefined, "title" : undefined, "content" : undefined, "date" : undefined},
+                views : {
+                    "header" : {templateUrl: "template/header.html"},
+                    "content" : {templateUrl: "template/newPage.html"}
+                }
+            }
+        )
         .state("page", {
                 url : "/page/:page_id",
                 views : {
@@ -175,20 +184,21 @@ app.controller("pageCtrl", function ($scope, $http, $location, $state, $statePar
         $scope.page = res.data;
     });
 
-    /*$scope.deleteArticle = function function_name (id) {
-        $http.delete("http://localhost:8080/app/article/" + id)
+    $scope.deletePage = function function_name (id) {
+        $http.delete("http://localhost:8080/app/page/" + id)
         .then(function(res) {
             $("#" + id).toggle( "slide" , 500);
+            $state.go('home');
         })
     ;}
 
-    $scope.editArticle = function function_name (id, title, content, date) {
-        var article = {
+    $scope.editPage = function function_name (id, title, content, date) {
+        var page = {
             id : id,
             title : title,
             content : content,
             date : date
         };
-        $state.go('editArticle', article);
-    }*/
+        $state.go('editPage', page);
+    }
 });
