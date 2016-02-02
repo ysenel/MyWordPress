@@ -33,11 +33,27 @@ app.config(['$stateProvider',
                 }
             }
         )
+        .state("articles", {
+                url : "/articles",
+                views : {
+                    "header" : {templateUrl: "template/header.html"},
+                    "content" : {templateUrl: "template/articles.html"}
+                }
+            }
+        )
         .state("page", {
                 url : "/page/:page_id",
                 views : {
                     "header" : {templateUrl: "template/header.html"},
                     "content" : {templateUrl: "template/page.html"}
+                }
+            }
+        )
+        .state("pages", {
+                url : "/pages",
+                views : {
+                    "header" : {templateUrl: "template/header.html"},
+                    "content" : {templateUrl: "template/pages.html"}
                 }
             }
         )
@@ -88,6 +104,31 @@ app.controller("articleCtrl", function ($scope, $http, $location, $state) {
     }
 });
 
+app.controller("pagesCtrl", function ($scope, $http, $location, $state) {
+	$http.get("http://localhost:8080/app/pages/")
+    .then(function(res) {
+    	$scope.pages = res.data;
+
+    });
+
+    $scope.deletePage = function function_name (id) {
+    	$http.delete("http://localhost:8080/app/page/" + id)
+    	.then(function(res) {
+            $("#" + id).toggle( "slide" , 500);
+        })
+    ;}
+
+    $scope.editPage = function function_name (id, title, content, date) {
+        var page = {
+            id : id,
+            title : title,
+            content : content,
+            date : date
+        };
+        $state.go('editPage', page);
+    }
+});
+
 
 app.controller("headerCtrl", function ($scope, $http, $location, $state) {
     $http.get("http://localhost:8080/app/pages/")
@@ -129,7 +170,7 @@ app.controller("newArticle", function ($scope, $http, $state, $stateParams) {
             $http.post("http://localhost:8080/app/article", $scope.newArticle)
             .then(function(res) {
                 console.log("envoyé");
-                $state.go('home');
+                $state.go('articles');
 
             });
         }
@@ -139,7 +180,7 @@ app.controller("newArticle", function ($scope, $http, $state, $stateParams) {
             $http.put("http://localhost:8080/app/article", $scope.newArticle)
             .then(function(res) {
                 console.log("mis a jour");
-                $state.go('home');
+                $state.go('articles');
 
             });
         }
@@ -160,7 +201,7 @@ app.controller("newPage", function ($scope, $http, $state, $stateParams) {
             $http.post("http://localhost:8080/app/page", $scope.newPage)
             .then(function(res) {
                 console.log("envoyé");
-                $state.go('home');
+                $state.go('pages');
 
             });
         }
@@ -169,7 +210,7 @@ app.controller("newPage", function ($scope, $http, $state, $stateParams) {
             $http.put("http://localhost:8080/app/page", $scope.newPage)
             .then(function(res) {
                 console.log("mis à jour");
-                $state.go('home');
+                $state.go('pages');
 
             });
         }
@@ -177,7 +218,7 @@ app.controller("newPage", function ($scope, $http, $state, $stateParams) {
 });
 
 app.controller("pageCtrl", function ($scope, $http, $location, $state, $stateParams) {
-    
+
     console.log($stateParams.page_id);
     $http.get("http://localhost:8080/app/page/" + $stateParams.page_id)
     .then(function(res) {
