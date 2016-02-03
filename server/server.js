@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var article = require("./article");
 var page = require("./page");
+var user = require("./user");
 var cors = require('cors');
 
 
@@ -36,6 +37,14 @@ app.get('/app/page/:id', page.getOne);
 app.delete('/app/page/:id', page.deleteOne);
 app.delete('/app/pages', page.deleteAll);
 app.put('/app/page', page.updatePage);
+
+/* Users */
+app.get('/app/users', user.getAll);
+app.post('/app/user', user.create);
+app.get('/app/user/:id', user.getOne);
+app.delete('/app/user/:id', user.deleteOne);
+app.delete('/app/users', user.deleteAll);
+app.put('/app/user', user.updateUser);
 
 
 app.listen(8080);
