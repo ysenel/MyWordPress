@@ -41,6 +41,14 @@ app.config(['$stateProvider',
                 }
             }
         )
+        .state("login", {
+                url : "/login",
+                views : {
+                    //"header" : {templateUrl: "template/header.html"},
+                    "content" : {templateUrl: "template/connection.html"}
+                }
+            }
+        )
         .state("page", {
                 url : "/page/:page_id",
                 views : {
