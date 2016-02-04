@@ -4,7 +4,7 @@ var userSchema = new mongoose.Schema({
 	login : String,
 	pass : String,
 	last_name : String,
-  firs_name : String,
+  first_name : String,
   token : String
 });
 
@@ -12,22 +12,20 @@ var userModel = mongoose.model('users', userSchema);
 
 
 exports.create = function (req, res) {
-	if (typeof req.body.title != 'undefined'){
+	console.log(req.body);
 		var user = new userModel({
 			login : req.body.login,
 			pass : req.body.pass,
 			last_name : req.body.last_name,
       first_name : req.body.first_name,
-      token :req.body.token
+      token : ""
 		});
+		console.log(user);
 		user.save(function (err, doc) {
 	  		if (err) { throw err; }
 	  		console.log('user ajouté avec succès !');
 	  		res.json(doc);
 		});
-	}
-	else
-		res.json("error");
 };
 
 exports.getAll = function (res, res) {

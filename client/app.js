@@ -49,6 +49,14 @@ app.config(['$stateProvider',
                 }
             }
         )
+        .state("newUser", {
+                url : "/newUser",
+                views : {
+                    //"header" : {templateUrl: "template/header.html"},
+                    "content" : {templateUrl: "template/newUser.html"}
+                }
+            }
+        )
         .state("page", {
                 url : "/page/:page_id",
                 views : {
@@ -139,10 +147,6 @@ app.controller("pagesCtrl", function ($scope, $http, $location, $state) {
 
 
 app.controller("headerCtrl", function ($scope, $http, $location, $state) {
-    $http.get("http://localhost:8080/app/pages/")
-    .then(function(res) {
-        $scope.pages = res.data;
-    });
 
     /*$scope.deleteArticle = function function_name (id) {
         $http.delete("http://localhost:8080/app/article/" + id)
@@ -250,4 +254,40 @@ app.controller("pageCtrl", function ($scope, $http, $location, $state, $statePar
         };
         $state.go('editPage', page);
     }
+});
+
+app.controller("loginCtrl", function ($scope, $http, $location, $state) {
+    $scope.connection_data = {};
+
+    $scope.user_connection = function () {
+      $http.post("http://localhost:8080/app/login", $scope.connection_data)
+      .then(function(res) {
+          console.log("login et pass envoyé");
+          if (res.status == 200) {
+              $state.go('home');
+          }
+
+
+      });
+
+    }
+
+});
+
+app.controller("newUserCtrl", function ($scope, $http, $location, $state) {
+    $scope.user_data = {};
+
+    $scope.new_user = function () {
+      $http.post("http://localhost:8080/app/user", $scope.user_data)
+      .then(function(res) {
+          console.log("new user envoyé");
+          if (res.status == 200) {
+              $state.go('home');
+          }
+
+
+      });
+
+    }
+
 });

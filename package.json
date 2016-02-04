@@ -6,6 +6,8 @@
     "body-parser": "*",
     "cors": "^2.7.1",
     "express": "4.12.x",
-    "mongoose": "*"
+    "mongoose": "*",
+    "jsonwebtoken" : "*",
+    "express-jwt" : "*"
   }
 }

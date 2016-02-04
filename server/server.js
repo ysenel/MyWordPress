@@ -1,15 +1,21 @@
 var express = require("express");
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var cors = require('cors');
+var jwt = require('jsonwebtoken');
+var expressJwt = require('express-jwt');
+
 var article = require("./article");
 var page = require("./page");
 var user = require("./user");
-var cors = require('cors');
+
 
 
 var app = express();
 app.use(bodyParser());
 app.use(cors());
+
+
 
 var db = mongoose.connect('mongodb://localhost/MyWordPress', function(err) {
   if (err) { throw err; }
@@ -19,6 +25,26 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
+});
+
+var mySecret = 'my_secret_key';
+//app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login' ]}));
+
+/* Login */
+app.post('/app/login', function (req, res) {
+  // Ici on vérifierait que le login et mot de passe sont corrects
+  console.log("ergreerqh");
+	console.log(req.body.login);
+  res.json("200");
+  // création d'un token
+  /*var token = jwt.sign({
+    username: 'toto'
+  }, jwtSecret);
+  var otherPro = 'blibli';
+  res.send({
+    token: token,
+    otherPro: otherPro
+  });*/
 });
 
 /* Articles */
