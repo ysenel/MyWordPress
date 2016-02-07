@@ -31,21 +31,7 @@ var mySecret = 'my_secret_key';
 //app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login' ]}));
 
 /* Login */
-app.post('/app/login', function (req, res) {
-  // Ici on vérifierait que le login et mot de passe sont corrects
-  console.log("ergreerqh");
-	console.log(req.body.login);
-  res.json("200");
-  // création d'un token
-  /*var token = jwt.sign({
-    username: 'toto'
-  }, jwtSecret);
-  var otherPro = 'blibli';
-  res.send({
-    token: token,
-    otherPro: otherPro
-  });*/
-});
+app.post('/app/login', user.userCheck);
 
 /* Articles */
 app.get('/app/articles', article.getAll);

@@ -7,14 +7,23 @@ app.config(function ($routeProvider) {
 app.config(['$stateProvider',
 	function($stateProvider) {
 		$stateProvider
-        .state("home", {
+        .state("site", {
                 url : "/",
-				views : {
-					"header" : {templateUrl: "template/header.html"},
-					"content" : {templateUrl: "template/main_menu.html"}
-				}
-			}
-		)
+        				views : {
+        					//"header" : {templateUrl: "template/header.html"},
+        					"content" : {templateUrl: "template/site.html"}
+        				}
+        			}
+        		)
+
+        .state("dashboard", {
+                url : "/dashboard",
+                views : {
+                  "header" : {templateUrl: "template/header.html"},
+                  "content" : {templateUrl: "template/dashboard.html"}
+                }
+              }
+            )
         .state("editArticle", {
                 url : "/editArticle",
                 params : {"id" : undefined, "title" : undefined, "content" : undefined, "date" : undefined},
@@ -92,7 +101,7 @@ app.config(['$stateProvider',
 }])
 
 .run(['$state', function ($state) {
-   $state.transitionTo('home');
+   $state.transitionTo('site');
 }]);
 
 app.controller("articleCtrl", function ($scope, $http, $location, $state) {
@@ -241,7 +250,7 @@ app.controller("pageCtrl", function ($scope, $http, $location, $state, $statePar
         $http.delete("http://localhost:8080/app/page/" + id)
         .then(function(res) {
             $("#" + id).toggle( "slide" , 500);
-            $state.go('home');
+            $state.go('dashboard');
         })
     ;}
 
@@ -264,10 +273,8 @@ app.controller("loginCtrl", function ($scope, $http, $location, $state) {
       .then(function(res) {
           console.log("login et pass envoyé");
           if (res.status == 200) {
-              $state.go('home');
+              $state.go('dashboard');
           }
-
-
       });
 
     }
@@ -282,12 +289,17 @@ app.controller("newUserCtrl", function ($scope, $http, $location, $state) {
       .then(function(res) {
           console.log("new user envoyé");
           if (res.status == 200) {
-              $state.go('home');
+              $state.go('site');
           }
 
 
       });
 
     }
+
+});
+
+
+app.controller("siteCtrl", function ($scope, $http, $location, $state) {
 
 });

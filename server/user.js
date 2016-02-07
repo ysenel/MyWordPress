@@ -44,6 +44,21 @@ exports.getOne = function (req, res) {
 	});
 };
 
+exports.userCheck = function (req, res) {
+	console.log("in function");
+	var query = userModel.find({login : req.body.login, pass : req.body.pass});
+	query.exec(function (err, user) {
+  		if (err) { throw err; }
+			if (user.length == 1) {
+				res.json("200");
+			}
+			else {
+					res.json("400");;
+			}
+
+	});
+};
+
 exports.deleteOne = function (req, res) {
 	var id = req.params.id;
 	userModel.remove({_id : id}, function (err, result) {
