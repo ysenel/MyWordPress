@@ -14,12 +14,24 @@ app.config(['$stateProvider',
         .state("site", {
                 url : "/",
         				views : {
-        					//"header" : {templateUrl: "template/header.html"},
         					"content" : {templateUrl: "template/site.html"}
         				}
         			}
         		)
-
+        .state("newUser", {
+                    url : "/newUser",
+                    views : {
+                        "content" : {templateUrl: "template/newUser.html"}
+                    }
+                }
+            )
+        .state("login", {
+                    url : "/login",
+                    views : {
+                        "content" : {templateUrl: "template/connection.html"}
+                    }
+                }
+            )
         .state("dashboard", {
                 url : "/dashboard",
                 views : {
@@ -28,53 +40,28 @@ app.config(['$stateProvider',
                 }
               }
             )
+        .state("articles", {
+                    url : "/articles",
+                    views : {
+                        "header" : {templateUrl: "template/header.html"},
+                        "content" : {templateUrl: "template/articles.html"}
+                    }
+                }
+            )
+        .state("addArticle", {
+                    url : "/addArticle",
+                    views : {
+                        "header" : {templateUrl: "template/header.html"},
+                        "content" : {templateUrl: "template/newArticle.html"}
+                    }
+                }
+            )
         .state("editArticle", {
                 url : "/editArticle",
                 params : {"id" : undefined, "title" : undefined, "content" : undefined, "date" : undefined},
                 views : {
                     "header" : {templateUrl: "template/header.html"},
                     "content" : {templateUrl: "template/newArticle.html"}
-                }
-            }
-        )
-        .state("editPage", {
-                url : "/editPage",
-                params : {"id" : undefined, "title" : undefined, "content" : undefined, "date" : undefined},
-                views : {
-                    "header" : {templateUrl: "template/header.html"},
-                    "content" : {templateUrl: "template/newPage.html"}
-                }
-            }
-        )
-        .state("articles", {
-                url : "/articles",
-                views : {
-                    "header" : {templateUrl: "template/header.html"},
-                    "content" : {templateUrl: "template/articles.html"}
-                }
-            }
-        )
-        .state("login", {
-                url : "/login",
-                views : {
-                    //"header" : {templateUrl: "template/header.html"},
-                    "content" : {templateUrl: "template/connection.html"}
-                }
-            }
-        )
-        .state("newUser", {
-                url : "/newUser",
-                views : {
-                    //"header" : {templateUrl: "template/header.html"},
-                    "content" : {templateUrl: "template/newUser.html"}
-                }
-            }
-        )
-        .state("page", {
-                url : "/page/:page_id",
-                views : {
-                    "header" : {templateUrl: "template/header.html"},
-                    "content" : {templateUrl: "template/page.html"}
                 }
             }
         )
@@ -94,11 +81,12 @@ app.config(['$stateProvider',
                 }
             }
         )
-        .state("addArticle", {
-                url : "/addArticle",
+        .state("editPage", {
+                url : "/editPage",
+                params : {"id" : undefined, "title" : undefined, "content" : undefined, "date" : undefined},
                 views : {
                     "header" : {templateUrl: "template/header.html"},
-                    "content" : {templateUrl: "template/newArticle.html"}
+                    "content" : {templateUrl: "template/newPage.html"}
                 }
             }
         );
@@ -128,10 +116,9 @@ app.factory('TokenInterceptor', function ($window, AuthenticationService) {
 }});
 
 app.controller("articleCtrl", function ($scope, $http, $location, $state) {
-	$http.get("http://localhost:8080/app/articles/")
+    $http.get("http://localhost:8080/app/articles/")
     .then(function(res) {
-    	$scope.articles = res.data;
-
+        $scope.articles = res.data;
     });
 
     $scope.deleteArticle = function function_name (id) {
@@ -156,7 +143,6 @@ app.controller("pagesCtrl", function ($scope, $http, $location, $state) {
 	$http.get("http://localhost:8080/app/pages/")
     .then(function(res) {
     	$scope.pages = res.data;
-
     });
 
     $scope.deletePage = function function_name (id) {
@@ -179,7 +165,6 @@ app.controller("pagesCtrl", function ($scope, $http, $location, $state) {
 
 
 app.controller("headerCtrl", function ($scope, $http, $location, $state, $window, AuthenticationService) {
-
     $scope.deconnexion = function () {
         AuthenticationService.isLogged = false;
         delete $window.sessionStorage.token;
@@ -202,19 +187,14 @@ app.controller("newArticle", function ($scope, $http, $state, $stateParams) {
         if ($state.current.name == "addArticle") {
             $http.post("http://localhost:8080/app/article", $scope.newArticle)
             .then(function(res) {
-                console.log("envoyé");
                 $state.go('articles');
-
             });
         }
-
         else{
-            console.log($scope.newArticle);
             $http.put("http://localhost:8080/app/article", $scope.newArticle)
             .then(function(res) {
                 console.log("mis a jour");
                 $state.go('articles');
-
             });
         }
     }
@@ -235,81 +215,42 @@ app.controller("newPage", function ($scope, $http, $state, $stateParams) {
             .then(function(res) {
                 console.log("envoyé");
                 $state.go('pages');
-
             });
         }
-
         else{
             $http.put("http://localhost:8080/app/page", $scope.newPage)
             .then(function(res) {
                 console.log("mis à jour");
                 $state.go('pages');
-
             });
         }
     }
 });
 
-app.controller("pageCtrl", function ($scope, $http, $location, $state, $stateParams) {
-
-    console.log($stateParams.page_id);
-    $http.get("http://localhost:8080/app/page/" + $stateParams.page_id)
-    .then(function(res) {
-        $scope.page = res.data;
-    });
-
-    $scope.deletePage = function function_name (id) {
-        $http.delete("http://localhost:8080/app/page/" + id)
-        .then(function(res) {
-            $("#" + id).toggle( "slide" , 500);
-            $state.go('dashboard');
-        })
-    ;}
-
-    $scope.editPage = function function_name (id, title, content, date) {
-        var page = {
-            id : id,
-            title : title,
-            content : content,
-            date : date
-        };
-        $state.go('editPage', page);
-    }
-});
-
 app.controller("loginCtrl", function ($scope, $http, $location, $state, $window, AuthenticationService) {
     $scope.connection_data = {};
-
     $scope.user_connection = function () {
-      $http.post("http://localhost:8080/app/login", $scope.connection_data)
-      .then(function(res) {
-          if (res.status == 200) {
-              AuthenticationService.isLogged = true;
-              $window.sessionStorage.token = res.data.token;
-              $state.go('dashboard');
-          }
-      });
-
+        $http.post("http://localhost:8080/app/login", $scope.connection_data)
+        .then(function(res) {
+            if (res.status == 200) {
+                AuthenticationService.isLogged = true;
+                $window.sessionStorage.token = res.data.token;
+                $state.go('dashboard');
+            }
+        });
     }
-
 });
 
 app.controller("newUserCtrl", function ($scope, $http, $location, $state) {
     $scope.user_data = {};
-
     $scope.new_user = function () {
-      $http.post("http://localhost:8080/app/user", $scope.user_data)
-      .then(function(res) {
-          console.log("new user envoyé");
-          if (res.status == 200) {
-              $state.go('site');
-          }
-
-
-      });
-
+        $http.post("http://localhost:8080/app/user", $scope.user_data)
+        .then(function(res) {
+            if (res.status == 200) {
+                $state.go('site');
+            }
+        });
     }
-
 });
 
 

@@ -1,37 +1,36 @@
 <div ng-controller="newUserCtrl">
-<div class="container" style="margin-top : 10em;">
+    <div class="container" style="margin-top : 10em;">
         <div class="row">
             <div class="col-xs-6">
 
-              <h2 class="page-header">Nouvel Utilisateur</h2>
+                <h2 class="page-header">Nouvel Utilisateur</h2>
 
+                <form ng-submit="new_user()">
+                    <label>Nom</label>
+                    <input type="text" ng-model="user_data.last_name" class="form-control" />
 
-              <form ng-submit="new_user()">
+                    <br></br>
 
+                    <label>Prénom</label>
+                    <input type="text" ng-model="user_data.first_name" class="form-control" />
 
+                    <br></br>
 
-                <label>Nom</label>
-                  <input type="text" ng-model="user_data.last_name" class="form-control" />
-
-                <br></br>
-                 <label>Prénom</label>
-                   <input type="text" ng-model="user_data.first_name" class="form-control" />
-
-                 <br></br>
-                  <label>Login</label>
+                    <label>Login</label>
                     <input type="text" ng-model="user_data.login" class="form-control" />
 
-                  <br></br>
+                    <br></br>
 
-                   <label>Mot de passe</label>
-                     <input type="password" ng-model="user_data.pass" class="form-control" />
+                    <label>Mot de passe</label>
+                    <input type="password" ng-model="user_data.pass" class="form-control" />
 
-                   <br></br>
+                    <br></br>
 
-                <button type="submit" class="btn btn-lg btn-primary">Envoyer</button>
-              </form>
+                    <button type="submit" class="btn btn-lg btn-primary">Envoyer</button>
+
+                </form>
 
             </div>
-      </div>
-</div>
+        </div>
+    </div>
 </div>

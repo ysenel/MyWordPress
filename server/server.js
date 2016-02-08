@@ -6,9 +6,9 @@ var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 
 /* Module codé */
-var article = require("./article");
-var page = require("./page");
-var user = require("./user");
+var article = require("./route/article");
+var page = require("./route/page");
+var user = require("./route/user");
 
 
 var app = express();
@@ -31,7 +31,7 @@ var db = mongoose.connect('mongodb://localhost/MyWordPress', function(err) {
 
 /* Mise en place du token sur toute les routes sauf /login */
 var mySecret = 'my_secret_key';
-app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login' ]}));
+app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login','/app/user']}));
 
 /* Login */
 app.post('/app/login', user.userCheck);
