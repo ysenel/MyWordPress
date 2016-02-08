@@ -5,21 +5,16 @@ var cors = require('cors');
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 
+/* Module codé */
 var article = require("./article");
 var page = require("./page");
 var user = require("./user");
 
 
-
 var app = express();
+
 app.use(bodyParser());
 app.use(cors());
-
-
-
-var db = mongoose.connect('mongodb://localhost/MyWordPress', function(err) {
-  if (err) { throw err; }
-});
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -27,6 +22,14 @@ app.use(function(req, res, next) {
   next();
 });
 
+
+/* Connexion à la base de donées */
+var db = mongoose.connect('mongodb://localhost/MyWordPress', function(err) {
+  if (err) { throw err; }
+});
+
+
+/* Mise en place du token sur toute les routes sauf /login */
 var mySecret = 'my_secret_key';
 app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login' ]}));
 

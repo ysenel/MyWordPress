@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
+/* Schéma d'un article */
 var articleSchema = new mongoose.Schema({
 	title : String,
 	content : String,
@@ -17,19 +18,19 @@ exports.create = function (req, res) {
 			date : req.body.date
 		});
 		article.save(function (err, doc) {
-	  		if (err) { throw err; }
+	  		if (err) { throw err; res.sendStatus(500);}
 	  		console.log('article ajouté avec succès !');
 	  		res.json(doc);
 		});
 	}
 	else
-		res.json("error");
+		res.sendStatus(500);
 };
 
 exports.getAll = function (res, res) {
 	var query = articleModel.find(null);
 	query.exec(function (err, articles) {
-  		if (err) { throw err; }
+  		if (err) { throw err; res.sendStatus(500);}
   		return res.json(articles);
 	});
 };
@@ -37,25 +38,23 @@ exports.getAll = function (res, res) {
 exports.getOne = function (req, res) {
 	var query = articleModel.findById({_id : req.params.id});
 	query.exec(function (err, article) {
-  		if (err) { throw err; }
+  		if (err) { throw err; res.sendStatus(500);}
   		return res.json(article);
 	});
 };
 
 exports.deleteOne = function (req, res) {
 	var id = req.params.id;
-	console.log(id);
 	articleModel.remove({_id : id}, function (err, result) {
-  	if (err) { throw err; }
+  	if (err) { throw err; res.sendStatus(500);}
   	console.log('Article id = ' + id + ' supprimé.');
-  	res.json({msg: 'This is CORS-enabled for all origins!'});
-  	//return res.json(result);
+  	res.json({msg: 'This is CORS-enabled for all origins!', result : result});
 	});
 };
 
 exports.deleteAll = function (req, res) {
 	articleModel.remove(null, function (err, result) {
-  	if (err) { throw err; }
+  	if (err) { throw err; res.sendStatus(500);}
   	console.log('Tout les articles ont été supprimés.');
   	return res.json(result);
 	});
@@ -63,10 +62,9 @@ exports.deleteAll = function (req, res) {
 
 exports.updateArticle = function (req, res) {
 	var id = req.body.id;
-	console.log(req.body);
-	articleModel.update({_id : id}, req.body, { multi : true }, function (err, ressult) {
-  		if (err) { throw err; }
+	articleModel.update({_id : id}, req.body, { multi : true }, function (err, result) {
+  		if (err) { throw err; res.sendStatus(500);}
   		console.log('Article modifié');
-  		res.json({msg: 'This is CORS-enabled for all origins!'});
+  		res.json({msg: 'This is CORS-enabled for all origins!', result : result});
 	});
 };

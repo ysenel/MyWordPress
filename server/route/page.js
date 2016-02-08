@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
+/* Schéma d'une page */
 var pageSchema = new mongoose.Schema({
 	title : String,
 	content : String,
@@ -17,19 +18,19 @@ exports.create = function (req, res) {
 			date : req.body.date
 		});
 		page.save(function (err, doc) {
-	  		if (err) { throw err; }
+	  		if (err) { throw err; res.sendStatus(500);}
 	  		console.log('page ajoutée avec succès !');
 	  		res.json(doc);
 		});
 	}
 	else
-		res.json("error");
+		res.sendStatus(500);
 };
 
 exports.getAll = function (res, res) {
 	var query = pageModel.find(null);
 	query.exec(function (err, pages) {
-  		if (err) { throw err; }
+  		if (err) { throw err; res.sendStatus(500);}
   		return res.json(pages);
 	});
 };
@@ -37,7 +38,7 @@ exports.getAll = function (res, res) {
 exports.getOne = function (req, res) {
 	var query = pageModel.findById({_id : req.params.id});
 	query.exec(function (err, page) {
-  		if (err) { throw err; }
+  		if (err) { throw err; res.sendStatus(500);}
   		return res.json(page);
 	});
 };
@@ -45,16 +46,15 @@ exports.getOne = function (req, res) {
 exports.deleteOne = function (req, res) {
 	var id = req.params.id;
 	pageModel.remove({_id : id}, function (err, result) {
-  	if (err) { throw err; }
+  	if (err) { throw err; res.sendStatus(500);}
   	console.log('Page id = ' + id + ' supprimée.');
-  	res.json({msg: 'This is CORS-enabled for all origins!'});
-  	//return res.json(result);
+  	res.json({msg: 'This is CORS-enabled for all origins!', result : result});
 	});
 };
 
 exports.deleteAll = function (req, res) {
 	pageModel.remove(null, function (err, result) {
-  	if (err) { throw err; }
+  	if (err) { throw err; res.sendStatus(500);}
   	console.log('Toutes les pages ont été supprimées.');
   	return res.json(result);
 	});
@@ -62,9 +62,9 @@ exports.deleteAll = function (req, res) {
 
 exports.updatePage = function (req, res) {
 	var id = req.body.id;
-	pageModel.update({_id : id}, req.body, { multi : true }, function (err, ressult) {
-  		if (err) { throw err; }
+	pageModel.update({_id : id}, req.body, { multi : true }, function (err, result) {
+  		if (err) { throw err; res.sendStatus(500);}
   		console.log('Page modifié');
-  		res.json({msg: 'This is CORS-enabled for all origins!'});
+  		res.json({msg: 'This is CORS-enabled for all origins!', result : result});
 	});
 };
