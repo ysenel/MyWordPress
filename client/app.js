@@ -4,6 +4,10 @@ app.config(function ($routeProvider) {
     $routeProvider.otherwise({redirectTo : "/"});
 });
 
+app.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push('TokenInterceptor');
+}]);
+
 app.config(['$stateProvider',
 	function($stateProvider) {
 		$stateProvider
@@ -104,6 +108,25 @@ app.config(['$stateProvider',
    $state.transitionTo('site');
 }]);
 
+app.factory('AuthenticationService', function() {
+    var auth = {
+        isLogged: false
+    }
+
+    return auth;
+});
+
+app.factory('TokenInterceptor', function ($window, AuthenticationService) {
+    return {
+        request: function (config) {
+            config.headers = config.headers || {};
+            if ($window.sessionStorage.token) {
+                config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+            }
+            return config;
+        }
+}});
+
 app.controller("articleCtrl", function ($scope, $http, $location, $state) {
 	$http.get("http://localhost:8080/app/articles/")
     .then(function(res) {
@@ -155,24 +178,13 @@ app.controller("pagesCtrl", function ($scope, $http, $location, $state) {
 });
 
 
-app.controller("headerCtrl", function ($scope, $http, $location, $state) {
+app.controller("headerCtrl", function ($scope, $http, $location, $state, $window, AuthenticationService) {
 
-    /*$scope.deleteArticle = function function_name (id) {
-        $http.delete("http://localhost:8080/app/article/" + id)
-        .then(function(res) {
-            $("#" + id).toggle( "slide" , 500);
-        })
-    ;}
-
-    $scope.editArticle = function function_name (id, title, content, date) {
-        var article = {
-            id : id,
-            title : title,
-            content : content,
-            date : date
-        };
-        $state.go('editArticle', article);
-    }*/
+    $scope.deconnexion = function () {
+        AuthenticationService.isLogged = false;
+        delete $window.sessionStorage.token;
+        $state.go('site');
+    }
 });
 
 
@@ -265,14 +277,15 @@ app.controller("pageCtrl", function ($scope, $http, $location, $state, $statePar
     }
 });
 
-app.controller("loginCtrl", function ($scope, $http, $location, $state) {
+app.controller("loginCtrl", function ($scope, $http, $location, $state, $window, AuthenticationService) {
     $scope.connection_data = {};
 
     $scope.user_connection = function () {
       $http.post("http://localhost:8080/app/login", $scope.connection_data)
       .then(function(res) {
-          console.log("login et pass envoyé");
           if (res.status == 200) {
+              AuthenticationService.isLogged = true;
+              $window.sessionStorage.token = res.data.token;
               $state.go('dashboard');
           }
       });

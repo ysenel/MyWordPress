@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var jwt = require('jsonwebtoken');
+var mySecret = 'my_secret_key';
 
 var userSchema = new mongoose.Schema({
 	login : String,
@@ -50,10 +52,15 @@ exports.userCheck = function (req, res) {
 	query.exec(function (err, user) {
   		if (err) { throw err; }
 			if (user.length == 1) {
-				res.json("200");
+
+			// création d'un token
+		  var token = jwt.sign({username: req.body.user_name}, mySecret);
+			console.log("token =" + token);
+		  res.send({ success: true, token: token});
+
 			}
 			else {
-					res.json("400");;
+					res.json("401");;
 			}
 
 	});

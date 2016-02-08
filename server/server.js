@@ -28,7 +28,7 @@ app.use(function(req, res, next) {
 });
 
 var mySecret = 'my_secret_key';
-//app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login' ]}));
+app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login' ]}));
 
 /* Login */
 app.post('/app/login', user.userCheck);
