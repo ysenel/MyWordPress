@@ -22,6 +22,11 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.options('/*', function (request, response, next) {
+    response.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+    response.send();
+});
+
 
 /* Connexion à la base de donées */
 var db = mongoose.connect('mongodb://localhost/MyWordPress', function(err) {
@@ -31,7 +36,7 @@ var db = mongoose.connect('mongodb://localhost/MyWordPress', function(err) {
 
 /* Mise en place du token sur toute les routes sauf /login */
 var mySecret = 'my_secret_key';
-app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login','/app/user']}));
+app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login','/app/user','/app/pages', /^\/app\/page\/.*/]}));
 
 /* Login */
 app.post('/app/login', user.userCheck);

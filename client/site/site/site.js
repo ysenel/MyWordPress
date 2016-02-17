@@ -5,7 +5,8 @@ angular.module('MyWordPress.site', ['ui.router', 'ngRoute'])
 		.state("site", {
                 url : "/",
         				views : {
-        					"content" : {templateUrl: "site/site/site.html"}
+        					"content" : {templateUrl: "site/site/site.html"},
+							"header" : {templateUrl: "site/siteHeader/siteHeader.html"},
         				}
         			}
         		);

@@ -6,6 +6,7 @@ var app = angular.module('MyWordPress', [
     'MyWordPress.site',
     'MyWordPress.site.registre',
     'MyWordPress.site.connection',
+    'MyWordPress.site.pages',
 
     /* ADMIN */
     'MyWordPress.admin.dashboard',
@@ -53,4 +54,11 @@ app.controller("headerCtrl", function ($scope, $http, $location, $state, $window
         delete $window.sessionStorage.token;
         $state.go('site');
     }
+});
+
+app.controller("siteHeaderCtrl", function ($scope, $http, $location, $state, $window, AuthenticationService) {
+    $http.get("http://localhost:23456/app/pages")
+    .then(function(res) {
+        $scope.pages = res.data;
+    });
 });
