@@ -5,7 +5,7 @@ angular.module('MyWordPress.site.registre', ['ui.router', 'ngRoute'])
         .state("newUser", {
                     url : "/newUser",
                     views : {
-                        "content" : {templateUrl: "site/registre/newUser.html"}
+                        "content" : {templateUrl: "site/registration/newUser.html"}
                     }
                 }
             );
