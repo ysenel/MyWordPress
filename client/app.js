@@ -53,12 +53,19 @@ app.controller("headerCtrl", function ($scope, $http, $location, $state, $window
         AuthenticationService.isLogged = false;
         delete $window.sessionStorage.token;
         $state.go('site');
-    }
+    };
 });
 
 app.controller("siteHeaderCtrl", function ($scope, $http, $location, $state, $window, AuthenticationService) {
+    $scope.logged = AuthenticationService.isLogged;
     $http.get("http://localhost:23456/app/pages")
     .then(function(res) {
         $scope.pages = res.data;
     });
+
+    $scope.deconnexion = function () {
+        AuthenticationService.isLogged = false;
+        delete $window.sessionStorage.token;
+        $state.go($state.current, {}, {reload: true});
+    };
 });

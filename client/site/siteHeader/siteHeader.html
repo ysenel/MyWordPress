@@ -8,8 +8,10 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#/login" class="dropdown-menu-right">Connexion</a></li>
-                <li><a href="#/newUser" class="dropdown-menu-right">Nouvel Utilisateur</a></li>
+                <li ng-hide="logged"><a href="#/login" class="dropdown-menu-right">Connexion</a></li>
+                <li ng-hide="logged"><a href="#/newUser" class="dropdown-menu-right">Nouvel Utilisateur</a></li>
+                <li ng-show="logged"><a href="#/dashboard" class="dropdown-menu-right">Mode Admin</a></li>
+                <li ng-show="logged"><a href="" class="dropdown-menu-right" ng-click="deconnexion()">Déconnexion</a></li>
             </ul>
 
         </div>
