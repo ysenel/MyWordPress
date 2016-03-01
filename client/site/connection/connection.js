@@ -22,6 +22,7 @@ app.controller("loginCtrl", function ($scope, $http, $location, $state, $window,
         .then(function(res) {
             if (res.status == 200) {
                 AuthenticationService.isLogged = true;
+				AuthenticationService.user_id = res.data.user_id;
                 $window.sessionStorage.token = res.data.token;
                 $state.go('dashboard');
             }

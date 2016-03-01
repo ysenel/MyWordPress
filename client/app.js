@@ -11,7 +11,8 @@ var app = angular.module('MyWordPress', [
     /* ADMIN */
     'MyWordPress.admin.dashboard',
     'MyWordPress.admin.articles',
-    'MyWordPress.admin.pages'
+    'MyWordPress.admin.pages',
+    'MyWordPress.admin.profil'
 ]);
 
 app.config(function ($routeProvider) {
@@ -30,7 +31,8 @@ app.run(['$state', function ($state) {
 
 app.factory('AuthenticationService', function() {
     var auth = {
-        isLogged: false
+        isLogged: false,
+        user_id: false
     }
 
     return auth;

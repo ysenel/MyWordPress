@@ -7,8 +7,8 @@ var userSchema = new mongoose.Schema({
 	login : String,
 	pass : String,
 	last_name : String,
-  first_name : String,
-  token : String
+  	first_name : String,
+  	token : String
 });
 
 var userModel = mongoose.model('users', userSchema);
@@ -39,6 +39,7 @@ exports.getAll = function (res, res) {
 
 exports.getOne = function (req, res) {
 	var query = userModel.findById({_id : req.params.id});
+	console.log("id =  " + req.params.id);
 	query.exec(function (err, user) {
   		if (err) { throw err; res.sendStatus(500);}
   		return res.json(user);
@@ -53,7 +54,7 @@ exports.userCheck = function (req, res) {
 			//création et envoie d'un token
 		  var token = jwt.sign({username: req.body.user_name}, mySecret);
 			console.log("token = " + token);
-		  res.send({ success: true, token: token});
+		  res.send({ success: true, token: token, user_id: user[0]._id});
 			}
 			else {
 					res.sendStatus(500);
@@ -79,11 +80,12 @@ exports.deleteAll = function (req, res) {
 	});
 };
 
+
 exports.updateUser = function (req, res) {
 	var id = req.body.id;
-	userModel.update({_id : id}, req.body, { multi : true }, function (err, ressult) {
+	userModel.update({_id : id}, req.body, { multi : true }, function (err, result) {
   		if (err) { throw err; res.sendStatus(500);}
   		console.log('User modifié');
-  		res.json({msg: 'This is CORS-enabled for all origins!', ressult : result});
+  		res.json({msg: 'This is CORS-enabled for all origins!', result : result});
 	});
 };
