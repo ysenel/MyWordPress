@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
+var path = require('path');
+var application_root = __dirname;
 
 /* Module codé */
 var article = require("./route/article");
@@ -12,6 +14,8 @@ var user = require("./route/user");
 
 
 var app = express();
+
+app.use(express.static(path.join(application_root ,'../client')));
 
 app.use(bodyParser());
 app.use(cors());
