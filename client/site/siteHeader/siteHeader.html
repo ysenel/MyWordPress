@@ -3,15 +3,15 @@
         <div class="container">
 
             <ul class="nav navbar-nav">
-                <li ng-repeat="page in pages"><a href="#/page/{{page._id}}">{{page.title}}</a></li>
+                <li ng-repeat="page in pages"><a href="#/page/{{page._id}}" class="btn btn-link btn-lg" >{{page.title}}</a></li>
 
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li ng-hide="logged"><a href="#/login" class="dropdown-menu-right">Connexion</a></li>
-                <li ng-hide="logged"><a href="#/newUser" class="dropdown-menu-right">Nouvel Utilisateur</a></li>
-                <li ng-show="logged"><a href="#/dashboard" class="dropdown-menu-right">Mode Admin</a></li>
-                <li ng-show="logged"><a href="" class="dropdown-menu-right" ng-click="deconnexion()">Déconnexion</a></li>
+                <li ng-hide="logged"><a href="#/login" class="dropdown-menu-right btn btn-link btn-lg"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
+                <li ng-hide="logged"><a href="#/newUser" class="dropdown-menu-right btn btn-link btn-lg"><span class="glyphicon glyphicon-user"></span> Nouvel Utilisateur</a></li>
+                <li ng-show="logged"><a href="#/dashboard" class="dropdown-menu-right btn btn-link btn-lg">Mode Admin</a></li>
+                <li ng-show="logged"><a href="" class="dropdown-menu-right btn btn-link btn-lg" ng-click="deconnexion()">Déconnexion</a></li>
             </ul>
 
         </div>
