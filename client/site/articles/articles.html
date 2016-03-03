@@ -1,0 +1,24 @@
+<div ng-controller="showArticlesCtrl">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-9">
+                <div ng-repeat="article in articles">
+
+
+                <div ng-attr-id="{{article._id}}">
+                <div class="page-header">
+                    <h1>{{article.title}}</h1>
+                </div>
+                <p>{{article.content}}</p>
+                <p class="pull-right">{{article.date | date:'dd-MM-yyyy HH:mm'}}</p>
+                <br></br>
+
+                </div>
+
+            </div>
+            </div>
+        </div>
+    </div>
+
+</div>

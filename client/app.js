@@ -7,6 +7,7 @@ var app = angular.module('MyWordPress', [
     'MyWordPress.site.registre',
     'MyWordPress.site.connection',
     'MyWordPress.site.pages',
+    'MyWordPress.site.articles',
 
     /* ADMIN */
     'MyWordPress.admin.dashboard',
@@ -64,6 +65,11 @@ app.controller("siteHeaderCtrl", function ($scope, $http, $location, $state, $wi
     $http.get("http://localhost:23456/app/pages")
     .then(function(res) {
         $scope.pages = res.data;
+    });
+
+    $http.get("http://localhost:23456/app/categories")
+    .then(function(res) {
+        $scope.categories = res.data;
     });
 
     $scope.deconnexion = function () {

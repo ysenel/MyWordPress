@@ -22,6 +22,18 @@
 					</div>
 					</div>
 
+					<div class="clearfix">
+				     <label >Choisir une Catégorie</label>
+					 <div>
+
+				     <select class="form-control" ng-model="categorie_selected" style="width : 25%">
+				       <option ng-repeat="categorie in categories" value="{{categorie._id}}">{{categorie.title}}</option>
+				     </select>
+					 </div>
+				   </div>
+
+
+					<br></br>
 					<a href="#/articles" style="margin-left : 1em" class="btn btn-lg btn-danger pull-right" role="button">Annuler</a>
 
 					<button type="submit" class="btn btn-lg btn-primary pull-right">Envoyer</button>
@@ -31,6 +43,7 @@
 					<br></br>
 
 					</form>
+
 				</div>
 			</div>
 		</div>

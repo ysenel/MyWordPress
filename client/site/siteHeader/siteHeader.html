@@ -3,8 +3,8 @@
         <div class="container">
 
             <ul class="nav navbar-nav">
+                <li ng-repeat="categorie in categories"><a href="#/categorie_articles/{{categorie._id}}" class="btn btn-link btn-lg" >{{categorie.title}}</a></li>
                 <li ng-repeat="page in pages"><a href="#/page/{{page._id}}" class="btn btn-link btn-lg" >{{page.title}}</a></li>
-
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

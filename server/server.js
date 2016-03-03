@@ -41,7 +41,7 @@ var db = mongoose.connect('mongodb://localhost/MyWordPress', function(err) {
 
 /* Mise en place du token sur toute les routes sauf /login */
 var mySecret = 'my_secret_key';
-app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login','/app/user','/app/pages', /^\/app\/page\/.*/]}));
+app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login','/app/user','/app/pages', '/app/categories', /^\/app\/categorie_articles\/.*/, /^\/app\/page\/.*/]}));
 
 /* Login */
 app.post('/app/login', user.userCheck);
@@ -53,6 +53,7 @@ app.get('/app/article/:id', article.getOne);
 app.delete('/app/article/:id', article.deleteOne);
 app.delete('/app/articles', article.deleteAll);
 app.put('/app/article', article.updateArticle);
+app.get('/app/categorie_articles/:id', article.getArticlesByCategorie);
 
 
 /* Pages */

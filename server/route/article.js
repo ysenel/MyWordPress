@@ -1,9 +1,11 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 /* Schéma d'un article */
 var articleSchema = new mongoose.Schema({
 	title : String,
 	content : String,
+	categorie : {type : Schema.Types.ObjectId, ref:'categorie'},
 	date : Date
 });
 
@@ -15,6 +17,7 @@ exports.create = function (req, res) {
 		var article = new articleModel({
 			title : req.body.title,
 			content : req.body.content,
+			categorie : req.body.categorie,
 			date : req.body.date
 		});
 		article.save(function (err, doc) {
@@ -27,7 +30,7 @@ exports.create = function (req, res) {
 		res.sendStatus(500);
 };
 
-exports.getAll = function (res, res) {
+exports.getAll = function (req, res) {
 	var query = articleModel.find(null);
 	query.exec(function (err, articles) {
   		if (err) { throw err; res.sendStatus(500);}
@@ -66,5 +69,14 @@ exports.updateArticle = function (req, res) {
   		if (err) { throw err; res.sendStatus(500);}
   		console.log('Article modifié');
   		res.json({msg: 'This is CORS-enabled for all origins!', result : result});
+	});
+};
+
+exports.getArticlesByCategorie = function (req, res) {
+	var categorie_id = req.params.id;
+	var query = articleModel.find({categorie : categorie_id});
+	query.exec(function (err, articles) {
+  		if (err) { throw err; res.sendStatus(500);}
+  		return res.json(articles);
 	});
 };

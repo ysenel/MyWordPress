@@ -56,6 +56,14 @@ angular.module('MyWordPress.admin.articles', ['ui.router', 'ngRoute'])
 
 .controller("newArticle", function ($scope, $http, $state, $stateParams) {
     $scope.newArticle = {};
+	$scope.categories = {};
+
+
+	$http.get("http://localhost:23456/app/categories")
+    .then(function(res) {
+        $scope.categories = res.data;
+    });
+
     if ($state.current.name == "editArticle") {
         $scope.newArticle.id = $stateParams.id;
         $scope.newArticle.title = $stateParams.title;
@@ -64,6 +72,7 @@ angular.module('MyWordPress.admin.articles', ['ui.router', 'ngRoute'])
 
     $scope.addNewArticle = function () {
         $scope.newArticle.date = new Date();
+		$scope.newArticle.categorie = $scope.categorie_selected;
         if ($state.current.name == "addArticle") {
             $http.post("http://localhost:23456/app/article", $scope.newArticle)
             .then(function(res) {
