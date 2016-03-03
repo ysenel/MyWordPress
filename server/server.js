@@ -11,6 +11,7 @@ var application_root = __dirname;
 var article = require("./route/article");
 var page = require("./route/page");
 var user = require("./route/user");
+var categorie = require("./route/categorie");
 
 
 var app = express();
@@ -69,6 +70,14 @@ app.get('/app/user/:id', user.getOne);
 app.delete('/app/user/:id', user.deleteOne);
 app.delete('/app/users', user.deleteAll);
 app.put('/app/user', user.updateUser);
+
+/* Categories */
+app.get('/app/categories', categorie.getAll);
+app.post('/app/categorie', categorie.create);
+app.get('/app/categorie/:id', categorie.getOne);
+app.delete('/app/categorie/:id', categorie.deleteOne);
+app.delete('/app/categories', categorie.deleteAll);
+app.put('/app/categorie', categorie.updateCategorie);
 
 
 app.listen(23456);

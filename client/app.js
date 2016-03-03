@@ -12,7 +12,8 @@ var app = angular.module('MyWordPress', [
     'MyWordPress.admin.dashboard',
     'MyWordPress.admin.articles',
     'MyWordPress.admin.pages',
-    'MyWordPress.admin.profil'
+    'MyWordPress.admin.profil',
+    "MyWordPress.admin.categories"
 ]);
 
 app.config(function ($routeProvider) {

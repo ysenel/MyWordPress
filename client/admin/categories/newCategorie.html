@@ -1,0 +1,25 @@
+<div ng-controller="newCategorie">
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <fieldset>
+                        <legend>Ajouter une Categorie</legend>
+                    </fieldset>
+                    <form ng-submit="addNewCategorie()">
+                        <div class="clearfix">
+                            <label>Nom de la categorie</label>
+                            <div class="input">
+                                <input type="text" ng-model="newCategorie.title"/>
+                            </div>
+                        </div>
+                        <a href="#/pages" style="margin-left : 1em" class="btn btn-lg btn-danger pull-right" role="button">Annuler</a>
+
+                        <button type="submit" class="btn btn-lg btn-primary pull-right">Envoyer</button>
+                        <br></br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
