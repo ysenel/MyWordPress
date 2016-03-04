@@ -54,6 +54,7 @@ app.delete('/app/article/:id', article.deleteOne);
 app.delete('/app/articles', article.deleteAll);
 app.put('/app/article', article.updateArticle);
 app.get('/app/categorie_articles/:id', article.getArticlesByCategorie);
+app.delete('/app/categorie_articles/:id', article.deleteArticlesByCategorie);
 
 
 /* Pages */

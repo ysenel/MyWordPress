@@ -36,12 +36,15 @@ angular.module('MyWordPress.admin.categories', ['ui.router', 'ngRoute'])
     	$scope.categories = res.data;
     });
 
-    $scope.deleteCategorie = function function_name (id) {
-    	$http.delete("http://localhost:23456/app/categorie/" + id)
-    	.then(function(res) {
-            $("#" + id).toggle( "slide" , 500);
-        })
-    ;}
+    $scope.deleteCategorie = function function_name (categorie_id) {
+		$http.delete("http://localhost:23456/app/categorie_articles/" + categorie_id)
+		.then(function(res) {
+			$http.delete("http://localhost:23456/app/categorie/" + categorie_id)
+			.then(function(res) {
+				$("#" + categorie_id).toggle( "slide" , 500);
+			});
+		});
+	}
 
     $scope.editCategorie = function function_name (id, title, date) {
         var page = {

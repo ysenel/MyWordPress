@@ -80,3 +80,12 @@ exports.getArticlesByCategorie = function (req, res) {
   		return res.json(articles);
 	});
 };
+
+exports.deleteArticlesByCategorie = function (req, res) {
+	var categorie_id = req.params.id;
+	articleModel.remove({categorie : categorie_id}, function (err, result) {
+  	if (err) { throw err; res.sendStatus(500);}
+  	console.log('Article id = ' + categorie_id + ' de la catégorie id = ' + categorie_id + ' supprimés.');
+  	res.json({msg: 'This is CORS-enabled for all origins!', result : result});
+	});
+};
