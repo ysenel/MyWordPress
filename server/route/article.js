@@ -31,7 +31,7 @@ exports.create = function (req, res) {
 };
 
 exports.getAll = function (req, res) {
-	var query = articleModel.find(null);
+	var query = articleModel.find(null).populate('categorie');
 	query.exec(function (err, articles) {
   		if (err) { throw err; res.sendStatus(500);}
   		return res.json(articles);

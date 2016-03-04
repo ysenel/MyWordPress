@@ -36,6 +36,7 @@ angular.module('MyWordPress.admin.articles', ['ui.router', 'ngRoute'])
         $scope.articles = res.data;
     });
 
+
     $scope.deleteArticle = function function_name (id) {
     	$http.delete("http://localhost:23456/app/article/" + id)
     	.then(function(res) {
