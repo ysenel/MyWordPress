@@ -55,7 +55,7 @@ angular.module('MyWordPress.admin.articles', ['ui.router', 'ngRoute'])
     }
 })
 
-.controller("newArticle", function ($scope, $http, $state, $stateParams) {
+.controller("newArticle", function ($scope, $http, $state, $stateParams, AuthenticationService) {
     $scope.newArticle = {};
 	$scope.categories = {};
 
@@ -73,6 +73,7 @@ angular.module('MyWordPress.admin.articles', ['ui.router', 'ngRoute'])
 
     $scope.addNewArticle = function () {
         $scope.newArticle.date = new Date();
+		$scope.newArticle.user = AuthenticationService.user_id;
 		$scope.newArticle.categorie = $scope.categorie_selected;
         if ($state.current.name == "addArticle") {
             $http.post("http://localhost:23456/app/article", $scope.newArticle)

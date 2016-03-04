@@ -23,7 +23,7 @@
                             <tr ng-repeat="article in articles" ng-attr-id="{{article._id}}" class="info">
                                 <td>{{article._id}}</td>
                                 <td>{{article.title}}</td>
-                                <td>Auteur non disponble</td>
+                                <td>{{article.user.first_name}}</td>
                                 <td>{{article.categorie.title}}</td>
                                 <td>Tags non disponble</td>
                                 <td>Commentaire non disponble</td>

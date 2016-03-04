@@ -6,6 +6,7 @@ var articleSchema = new mongoose.Schema({
 	title : String,
 	content : String,
 	categorie : {type : Schema.Types.ObjectId, ref:'categorie'},
+	user : {type : Schema.Types.ObjectId, ref:'users'},
 	date : Date
 });
 
@@ -17,6 +18,7 @@ exports.create = function (req, res) {
 		var article = new articleModel({
 			title : req.body.title,
 			content : req.body.content,
+			user : req.body.user,
 			categorie : req.body.categorie,
 			date : req.body.date
 		});
@@ -31,7 +33,7 @@ exports.create = function (req, res) {
 };
 
 exports.getAll = function (req, res) {
-	var query = articleModel.find(null).populate('categorie');
+	var query = articleModel.find(null).populate('user categorie');
 	query.exec(function (err, articles) {
   		if (err) { throw err; res.sendStatus(500);}
   		return res.json(articles);
