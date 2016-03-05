@@ -1,9 +1,11 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 /* Schéma d'une page */
 var pageSchema = new mongoose.Schema({
 	title : String,
 	content : String,
+	user : {type : Schema.Types.ObjectId, ref:'users'},
 	date : Date
 });
 
@@ -15,6 +17,7 @@ exports.create = function (req, res) {
 		var page = new pageModel({
 			title : req.body.title,
 			content : req.body.content,
+			user : req.body.user,
 			date : req.body.date
 		});
 		page.save(function (err, doc) {
@@ -28,7 +31,7 @@ exports.create = function (req, res) {
 };
 
 exports.getAll = function (res, res) {
-	var query = pageModel.find(null);
+	var query = pageModel.find(null).populate('user');
 	query.exec(function (err, pages) {
   		if (err) { throw err; res.sendStatus(500);}
   		return res.json(pages);

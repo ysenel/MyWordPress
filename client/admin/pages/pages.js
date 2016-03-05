@@ -54,7 +54,7 @@ angular.module('MyWordPress.admin.pages', ['ui.router', 'ngRoute'])
     }
 })
 
-.controller("newPage", function ($scope, $http, $state, $stateParams) {
+.controller("newPage", function ($scope, $http, $state, $stateParams, AuthenticationService) {
     $scope.newPage = {};
     if ($state.current.name == "editPage") {
         $scope.newPage.id = $stateParams.id;
@@ -64,6 +64,7 @@ angular.module('MyWordPress.admin.pages', ['ui.router', 'ngRoute'])
 
     $scope.addNewPage = function () {
         $scope.newPage.date = new Date();
+		$scope.newPage.user = AuthenticationService.user_id;
         if ($state.current.name == "addPage") {
             $http.post("http://localhost:23456/app/page", $scope.newPage)
             .then(function(res) {

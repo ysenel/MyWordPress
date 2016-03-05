@@ -13,7 +13,6 @@
                                 <th>#</th>
                                 <th>Titre</th>
                                 <th>Auteur</th>
-                                <th>Catégorie</th>
                                 <th>Tags</th>
                                 <th><span class="glyphicon glyphicon-comment"></span></th>
                                 <th>Date</th>
@@ -23,8 +22,7 @@
                             <tr ng-repeat="page in pages" ng-attr-id="{{page._id}}" class="info">
                                 <td>{{page._id}}</td>
                                 <td>{{page.title}}</td>
-                                <td>Auteur non disponble</td>
-                                <td>Catégorie non disponble</td>
+                                <td>{{page.user.first_name}}</td>
                                 <td>Tags non disponble</td>
                                 <td>Commentaire non disponble</td>
                                 <td>{{page.date | date:'dd-MM-yyyy HH:mm'}}</td>
