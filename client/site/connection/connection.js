@@ -23,8 +23,16 @@ app.controller("loginCtrl", function ($scope, $http, $location, $state, $window,
             if (res.status == 200) {
                 AuthenticationService.isLogged = true;
 				AuthenticationService.user_id = res.data.user_id;
+				AuthenticationService.droit = res.data.droit;
                 $window.sessionStorage.token = res.data.token;
-                $state.go('dashboard');
+
+				if (AuthenticationService.droit == 1) {
+					$state.go('dashboard');
+				}
+				else {
+					$state.go('site');
+				}
+
             }
         });
     }

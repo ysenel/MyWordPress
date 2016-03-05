@@ -8,7 +8,8 @@ var userSchema = new mongoose.Schema({
 	pass : String,
 	last_name : String,
   	first_name : String,
-  	token : String
+  	token : String,
+	droit : Number        // 1 = admin, 2 = user
 });
 
 var userModel = mongoose.model('users', userSchema);
@@ -19,8 +20,9 @@ exports.create = function (req, res) {
 			login : req.body.login,
 			pass : req.body.pass,
 			last_name : req.body.last_name,
-      first_name : req.body.first_name,
-      token : ""
+      		first_name : req.body.first_name,
+      		token : "",
+			droit : req.body.droit,
 		});
 		user.save(function (err, doc) {
 	  		if (err) { throw err; res.sendStatus(500);}
@@ -54,7 +56,7 @@ exports.userCheck = function (req, res) {
 			//création et envoie d'un token
 		  var token = jwt.sign({username: req.body.user_name}, mySecret);
 			console.log("token = " + token);
-		  res.send({ success: true, token: token, user_id: user[0]._id});
+		  res.send({ success: true, token: token, user_id: user[0]._id, droit : user[0].droit});
 			}
 			else {
 					res.sendStatus(500);

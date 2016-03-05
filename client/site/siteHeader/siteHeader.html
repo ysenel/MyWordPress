@@ -10,7 +10,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li ng-hide="logged"><a href="#/login" class="dropdown-menu-right btn btn-link btn-lg"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
                 <li ng-hide="logged"><a href="#/newUser" class="dropdown-menu-right btn btn-link btn-lg"><span class="glyphicon glyphicon-user"></span> Nouvel Utilisateur</a></li>
-                <li ng-show="logged"><a href="#/dashboard" class="dropdown-menu-right btn btn-link btn-lg">Mode Admin</a></li>
+                <li ng-show="admin"><a href="#/dashboard" class="dropdown-menu-right btn btn-link btn-lg">Mode Admin</a></li>
+                <li ng-show="logged"><a href="#/site/editProfil" class="dropdown-menu-right btn btn-link btn-lg"><span class="glyphicon glyphicon-user"></span> Modifier Profil</a></li>
                 <li ng-show="logged"><a href="" class="dropdown-menu-right btn btn-link btn-lg" ng-click="deconnexion()"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
             </ul>
 

@@ -8,6 +8,7 @@ var app = angular.module('MyWordPress', [
     'MyWordPress.site.connection',
     'MyWordPress.site.pages',
     'MyWordPress.site.articles',
+    'MyWordPress.site.profil',
 
     /* ADMIN */
     'MyWordPress.admin.dashboard',
@@ -33,8 +34,9 @@ app.run(['$state', function ($state) {
 
 app.factory('AuthenticationService', function() {
     var auth = {
-        isLogged: false,
-        user_id: false
+        isLogged : false,
+        user_id : false,
+        droit : 2
     }
 
     return auth;
@@ -62,6 +64,9 @@ app.controller("headerCtrl", function ($scope, $http, $location, $state, $window
 
 app.controller("siteHeaderCtrl", function ($scope, $http, $location, $state, $window, AuthenticationService) {
     $scope.logged = AuthenticationService.isLogged;
+    if (AuthenticationService.isLogged && AuthenticationService.droit == 1)
+        $scope.admin = true;
+
     $http.get("http://localhost:23456/app/pages")
     .then(function(res) {
         $scope.pages = res.data;
