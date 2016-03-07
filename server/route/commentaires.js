@@ -70,3 +70,11 @@ exports.updateCommentaire = function (req, res) {
   		res.json({msg: 'This is CORS-enabled for all origins!', result : result});
 	});
 };
+
+exports.getArticleCommentaires = function (req, res) {
+	var query = commentaireModel.find({article : req.params.id}).populate('user');
+	query.exec(function (err, commentaires) {
+  		if (err) { throw err; res.sendStatus(500);}
+		return res.json(commentaires);
+	});
+};

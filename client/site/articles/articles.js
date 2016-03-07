@@ -13,6 +13,8 @@ angular.module('MyWordPress.site.articles', ['ui.router', 'ngRoute'])
 
 }])
 
+
+
 .controller("showArticlesCtrl", function ($scope, $http, $state, $stateParams, AuthenticationService) {
 	$scope.comment = false;
 	$scope.new_comment = {};
@@ -36,7 +38,7 @@ angular.module('MyWordPress.site.articles', ['ui.router', 'ngRoute'])
 
 		$scope.new_comment.article = article_id;
 		$scope.new_comment.date = new Date();
-		
+
 		$http.post("http://localhost:23456/app/commentaire", $scope.new_comment)
 		.then(function(res) {
 			$state.go('site');
@@ -46,6 +48,14 @@ angular.module('MyWordPress.site.articles', ['ui.router', 'ngRoute'])
 	$http.get("http://localhost:23456/app/categorie_articles/" + $stateParams.categorie_id)
 	.then(function(res) {
 	       $scope.articles = res.data;
+    });
+
+})
+
+.controller("siteArticleController", function ($scope, $http, $state, $stateParams, AuthenticationService) {
+	$http.get("http://localhost:23456/app/article/commentaires/" + $scope.article._id)
+    .then(function(res) {
+        $scope.comments = res.data;
     });
 
 })

@@ -42,7 +42,9 @@ var db = mongoose.connect('mongodb://localhost/MyWordPress', function(err) {
 
 /* Mise en place du token sur toute les routes sauf /login */
 var mySecret = 'my_secret_key';
-app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login','/app/user','/app/pages', '/app/categories', '/app/commentaire', /^\/app\/categorie_articles\/.*/, /^\/app\/page\/.*/]}));
+app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login','/app/user','/app/pages',
+        '/app/categories', '/app/commentaire', /^\/app\/categorie_articles\/.*/, /^\/app\/page\/.*/,
+        /^\/app\/article\/commentaires\/.*/]}));
 
 /* Login */
 app.post('/app/login', user.userCheck);
@@ -89,6 +91,7 @@ app.get('/app/commentaire/:id', commentaire.getOne);
 app.delete('/app/commentaire/:id', commentaire.deleteOne);
 app.delete('/app/commentaires', commentaire.deleteAll);
 app.put('/app/commentaire', commentaire.updateCommentaire);
+app.get('/app/article/commentaires/:id', commentaire.getArticleCommentaires);
 
 
 app.listen(23456);
