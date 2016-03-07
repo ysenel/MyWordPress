@@ -13,7 +13,17 @@
                 <p>{{article.content}}</p>
                 <p class="pull-right">{{article.date | date:'dd-MM-yyyy HH:mm'}}</p>
                 <br></br>
+                </div>
 
+                <a ng-hide="comment" href="" class="btn btn-lg btn-link pull-right" ng-click="show_comment_form(this)">Commenter!!</a>
+
+                <div ng-show="comment">
+                    <form ng-submit="add_comment(article._id)">
+                        <h1><small>Ajout d'un nouveau commentaire</small></h1>
+                        <textarea ng-model="new_comment.content" style="width : 100%; height : 8em;" placeholder="Commentez!!!"></textarea>
+                        <button ng-click="cancel(this)" style="margin-top : 0.5em; margin-left : 1em;" class="btn btn-lg btn-danger pull-right">Annuler</button>
+                        <button type="submit" style="margin-top : 0.5em;" class="btn btn-lg btn-primary pull-right">Envoyer</button>
+                    </form>
                 </div>
 
             </div>

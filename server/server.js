@@ -12,6 +12,7 @@ var article = require("./route/article");
 var page = require("./route/page");
 var user = require("./route/user");
 var categorie = require("./route/categorie");
+var commentaire = require("./route/commentaires");
 
 
 var app = express();
@@ -41,7 +42,7 @@ var db = mongoose.connect('mongodb://localhost/MyWordPress', function(err) {
 
 /* Mise en place du token sur toute les routes sauf /login */
 var mySecret = 'my_secret_key';
-app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login','/app/user','/app/pages', '/app/categories', /^\/app\/categorie_articles\/.*/, /^\/app\/page\/.*/]}));
+app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login','/app/user','/app/pages', '/app/categories', '/app/commentaire', /^\/app\/categorie_articles\/.*/, /^\/app\/page\/.*/]}));
 
 /* Login */
 app.post('/app/login', user.userCheck);
@@ -80,6 +81,14 @@ app.get('/app/categorie/:id', categorie.getOne);
 app.delete('/app/categorie/:id', categorie.deleteOne);
 app.delete('/app/categories', categorie.deleteAll);
 app.put('/app/categorie', categorie.updateCategorie);
+
+/* Commentaires */
+app.get('/app/commentaires', commentaire.getAll);
+app.post('/app/commentaire', commentaire.create);
+app.get('/app/commentaire/:id', commentaire.getOne);
+app.delete('/app/commentaire/:id', commentaire.deleteOne);
+app.delete('/app/commentaires', commentaire.deleteAll);
+app.put('/app/commentaire', commentaire.updateCommentaire);
 
 
 app.listen(23456);
