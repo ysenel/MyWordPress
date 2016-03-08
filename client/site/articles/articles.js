@@ -23,7 +23,7 @@ angular.module('MyWordPress.site.articles', ['ui.router', 'ngRoute'])
 
 
 
-.controller("showArticlesCtrl", function ($scope, $http, $state, $stateParams, AuthenticationService) {
+.controller("showArticlesCtrl", function ($scope, $http, $state, $stateParams, AuthenticationService, $location, $window) {
 	$scope.comment = false;
 	$scope.new_comment = {};
 
@@ -49,7 +49,10 @@ angular.module('MyWordPress.site.articles', ['ui.router', 'ngRoute'])
 
 		$http.post("http://localhost:23456/app/commentaire", $scope.new_comment)
 		.then(function(res) {
-			$state.go('site');
+			if ($state.current.name == "categorie_aricles")
+				$state.go('categorie_aricles', { categorie_id : $stateParams.categorie_id }, {reload : true});
+			else
+				$state.go('article', { article_id : $stateParams.article_id }, {reload : true});
 		});
 	}
 
