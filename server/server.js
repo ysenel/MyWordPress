@@ -44,7 +44,7 @@ var db = mongoose.connect('mongodb://localhost/MyWordPress', function(err) {
 var mySecret = 'my_secret_key';
 app.use(expressJwt({ secret: mySecret }).unless({ path: [ '/app/login','/app/user','/app/pages',
         '/app/categories', '/app/commentaire', /^\/app\/categorie_articles\/.*/, /^\/app\/page\/.*/,
-        /^\/app\/article\/commentaires\/.*/]}));
+        /^\/app\/article\/commentaires\/.*/, /^\/app\/article\/.*/]}));
 
 /* Login */
 app.post('/app/login', user.userCheck);
