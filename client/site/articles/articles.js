@@ -9,6 +9,14 @@ angular.module('MyWordPress.site.articles', ['ui.router', 'ngRoute'])
                      "content" : {templateUrl: "site/articles/articles.html"}
                  }
              }
+		)
+		.state("article", {
+                 url : "/article/comments/:article_id",
+                 views : {
+					 "header" : {templateUrl: "site/siteHeader/siteHeader.html"},
+                     "content" : {templateUrl: "site/articles/article_comments.html"}
+                 }
+             }
 		);
 
 }])
@@ -45,11 +53,23 @@ angular.module('MyWordPress.site.articles', ['ui.router', 'ngRoute'])
 		});
 	}
 
-	$http.get("http://localhost:23456/app/categorie_articles/" + $stateParams.categorie_id)
-	.then(function(res) {
-	       $scope.articles = res.data;
-    });
-
+	if ($state.current.name == "categorie_aricles") {
+		$http.get("http://localhost:23456/app/categorie_articles/" + $stateParams.categorie_id)
+		.then(function(res) {
+			   $scope.articles = res.data;
+		});
+	}
+	else {
+		$scope.article = {};
+		$http.get("http://localhost:23456/app/article/" + $stateParams.article_id)
+		.then(function(res) {
+			   $scope.one_article = res.data;
+			   $http.get("http://localhost:23456/app/article/commentaires/" + $scope.one_article._id)
+				  .then(function(res) {
+					  $scope.article_comments = res.data;
+				  });
+		});
+	}
 })
 
 .controller("siteArticleController", function ($scope, $http, $state, $stateParams, AuthenticationService) {

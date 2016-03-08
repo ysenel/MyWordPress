@@ -33,7 +33,7 @@ exports.create = function (req, res) {
 };
 
 exports.getAll = function (req, res) {
-	var query = articleModel.find(null).populate('user categorie');
+	var query = articleModel.find(null).sort({date: 'descending'}).populate('user categorie');
 	query.exec(function (err, articles) {
   		if (err) { throw err; res.sendStatus(500);}
   		return res.json(articles);
@@ -41,7 +41,7 @@ exports.getAll = function (req, res) {
 };
 
 exports.getOne = function (req, res) {
-	var query = articleModel.findById({_id : req.params.id});
+	var query = articleModel.findById({_id : req.params.id}).populate('user');
 	query.exec(function (err, article) {
   		if (err) { throw err; res.sendStatus(500);}
   		return res.json(article);
@@ -76,7 +76,7 @@ exports.updateArticle = function (req, res) {
 
 exports.getArticlesByCategorie = function (req, res) {
 	var categorie_id = req.params.id;
-	var query = articleModel.find({categorie : categorie_id});
+	var query = articleModel.find({categorie : categorie_id}).sort({date: 'descending'}).populate('user');
 	query.exec(function (err, articles) {
   		if (err) { throw err; res.sendStatus(500);}
   		return res.json(articles);

@@ -2,25 +2,25 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <div  style="background-color : #F0F0F0;" ng-repeat="article in articles" >
-                    <div ng-controller="siteArticleController">
+                <div  style="background-color : #F0F0F0;">
+                    <div>
 
-                    <div ng-attr-id="{{article._id}}">
+                    <div ng-attr-id="{{one_article._id}}">
                         <div class="page-header">
-                            <h2 class="text-info">{{article.title}}</h2>
+                            <h2 class="text-info">{{one_article.title}}</h2>
                         </div>
-                        <p class="lead">{{article.content}}</p>
-                        <p class="pull-right" style="margin-right : 1em;">{{article.user.last_name}} {{article.user.first_name}}</p>
+                        <p class="lead">{{one_article.content}}</p>
+                        <p class="pull-right" style="margin-right : 1em;">{{one_article.user.first_name}} {{one_article.user.last_name}}</p>
                         <div class="clearfix"></div>
-                        <p class="pull-right">{{ article.date | date:'dd-MM-yyyy HH:mm'}}</p>
-
+                        <p class="pull-right">{{one_article.date | date:'dd-MM-yyyy HH:mm'}}</p>
+                        <br></br>
                     </div>
 
                     <h1 ng-if="comments.length > 0"><small>Derniers commentaires :</small></h1>
 
-                    <table style="margin-left : 10em; width : 85%;" class="table table-striped">
+                    <table class="table table-striped">
                         <tbody>
-                          <tr ng-repeat="comment in comments | limitTo:3">
+                          <tr ng-repeat="comment in article_comments">
                             <td ng-if="comment.anonymous == false">{{comment.user.last_name}} {{comment.user.first_name}}</td>
                             <td ng-if="comment.anonymous">Anonyme</td>
                             <td>{{comment.content}}</td>
@@ -29,14 +29,13 @@
                         </tbody>
                       </table>
 
-                    <div class="clearfix"></div>
+                    <br></br>
 
                     <a ng-hide="comment" href="" class="btn btn-lg btn-link pull-right" ng-click="show_comment_form(this)">Commenter!!</a>
-                    <a href="/#/article/comments/{{article._id}}" class="btn btn-lg btn-link pull-left" >Afficher tout les commentaires</a>
-                    <div class="clearfix"></div>
+                    <br></br>
 
                     <div ng-show="comment">
-                        <form ng-submit="add_comment(article._id)">
+                        <form ng-submit="add_comment(one_article._id)">
                             <h1><small>Ajout d'un nouveau commentaire</small></h1>
                             <textarea ng-model="new_comment.content" style="width : 100%; height : 8em;" placeholder="Commentez!!!"></textarea>
                             <a ng-click="cancel(this)" style="margin-top : 0.5em; margin-left : 1em;" class="btn btn-lg btn-danger pull-right">Annuler</a>
