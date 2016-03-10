@@ -39,7 +39,7 @@ exports.getAll = function (res, res) {
 };
 
 exports.getOne = function (req, res) {
-	var query = pageModel.findById({_id : req.params.id});
+	var query = pageModel.findById({_id : req.params.id}).populate('user');
 	query.exec(function (err, page) {
   		if (err) { throw err; res.sendStatus(500);}
 		return res.json(page);

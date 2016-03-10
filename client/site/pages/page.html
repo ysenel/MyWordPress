@@ -2,15 +2,21 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-xs-9">
-                <div ng-attr-id="{{page._id}}">
-                <div class="page-header">
-                    <h1>{{page.title}}</h1>
-                </div>
-                <p>{{page.content}}</p>
-                <p class="pull-right">{{page.date | date:'dd-MM-yyyy HH:mm'}}</p>
-                <br></br>
+            <div class="col-xs-12">
+                <div ng-attr-id="{{page._id}}" class="panel panel-primary">
 
+                    <div class="panel-heading">
+                        <h2>{{page.title}}</h2>
+                    </div>
+                    <div class="panel-body">
+
+
+                    <p>{{page.content}}</p>
+                    <p class="pull-right" style="margin-right : 1em;">{{page.user.last_name}} {{page.user.first_name}}</p>
+                    <div class="clearfix"></div>
+                    <p class="pull-right">{{ page.date | date:'dd-MM-yyyy HH:mm'}}</p>
+                    <br></br>
+                    </div>
                 </div>
 
             </div>
