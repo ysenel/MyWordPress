@@ -2,19 +2,20 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <div  style="background-color : #F0F0F0;">
-                    <div>
 
-                    <div ng-attr-id="{{one_article._id}}">
-                        <div class="page-header">
-                            <h2 class="text-info">{{one_article.title}}</h2>
+                    <div ng-attr-id="{{one_article._id}}" class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 >{{one_article.title}}</h2>
                         </div>
+                        <div class="panel-body">
+
+
                         <p class="lead">{{one_article.content}}</p>
                         <p class="pull-right" style="margin-right : 1em;">{{one_article.user.first_name}} {{one_article.user.last_name}}</p>
                         <div class="clearfix"></div>
                         <p class="pull-right">{{one_article.date | date:'dd-MM-yyyy HH:mm'}}</p>
                         <br></br>
-                    </div>
+
 
                     <h1 ng-if="comments.length > 0"><small>Derniers commentaires :</small></h1>
 
@@ -44,8 +45,8 @@
                         <br></br>
 
                         </div>
-                    </div>
-                </div>
+                                            </div>
+                                            </div>
             </div>
         </div>
     </div>
